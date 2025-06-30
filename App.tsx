@@ -13,7 +13,7 @@ export default function app(){
 
   return (
     <ThemeProvider theme={theme}>
-    {!fontsLoaded? <Groups /> : <Loading/> }
+    {fontsLoaded? <Groups /> : <Loading/> }
     </ThemeProvider>
 
   )
