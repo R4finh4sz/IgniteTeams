@@ -1,35 +1,29 @@
-export const theme = {
-	colors: {
-		base: {
-            white: '#fff',
-			gray100: '#F2F2F2',
-			gray200: '#D9D9D9',
-			gray300: '#808080',
-			gray400: '#333333',
-			gray500: '#262626',
-			gray600: '#1A1A1A',
-			gray700: '#0D0D0D',
-			red_dark: '#AA2834',
-            red: '#F75A68',
-            green700: '#00875F',
-			green500: '#00B37E',
-		},
-		brand: {
-			purple: '#8284FA',
-			purple_dark: '#5E60CE',
+export default {
+  COLORS: {
+    WHITE: '#FFFFFF',
 
-			blue: '#4EA8DE',
-			blue_dark: '#1E6F9F',
-		},
-	},
-	font_family: {
-		regular: 'Inter_400Regular',
-		bold: 'Inter_700Bold',
-	},
-	font_size: {
-		sm: 14,
-		md: 16,
-		lg: 16,
-        elg: 24,
-	},
-}
+    GREEN_700: '#00875F',
+    GREEN_500: '#00B37E',
+
+    RED: '#F75A68',
+    RED_DARK: '#AA2834',
+
+    GRAY_700: '#121214',
+    GRAY_600: '#202024',
+    GRAY_500: '#29292E',
+    GRAY_400: '#323238',
+    GRAY_300: '#7C7C8A',
+    GRAY_200: '#C4C4CC',
+    GRAY_100: '#E1E1E6'
+  },
+  FONT_FAMILY: {
+    REGULAR: 'Roboto_400Regular',
+    BOLD: 'Roboto_700Bold'
+  },
+  FONT_SIZE: {
+    SM: 14,
+    MD: 16,
+    LG: 18,
+    XL: 24
+  }
+};
