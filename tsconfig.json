@@ -17,12 +17,10 @@
       "@storage/*": [
         "src/storage/*"
       ],
-      "@theme/*": [
-        "src/theme/*"
-      ],
       "@utils/*": [
         "src/utils/*"
       ]
-    }
+    },
+    "types": ["styled-components", "styled-components/native"]
   }
 }
