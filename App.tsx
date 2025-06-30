@@ -3,7 +3,7 @@ import {useFonts, Roboto_400Regular, Roboto_700Bold} from '@expo-google-fonts/ro
 
 import { Loading } from "src/Components/Loading";
 
-import { theme } from "@theme/index";
+import theme from "src/theme";
 
 import { Groups } from "@screens/Groups";
 
@@ -12,9 +12,9 @@ export default function app(){
 
 
   return (
-<ThemeProvider theme={theme}>
-{!fontsLoaded? <Groups /> : <Loading/> }
-</ThemeProvider>
+    <ThemeProvider theme={theme}>
+    {!fontsLoaded? <Groups /> : <Loading/> }
+    </ThemeProvider>
 
   )
 }
