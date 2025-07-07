@@ -6,11 +6,9 @@ export function Groups() {
   return (
     <Container>
       <Header  />
-
       <HighLight 
       title='Turmas'
       subtitle='Jogue com a sua turma'/>
-
     </Container>
   );
 }
