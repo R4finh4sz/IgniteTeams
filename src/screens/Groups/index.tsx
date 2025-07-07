@@ -5,9 +5,10 @@ import { Header } from 'src/Components/Header';
 import { HighLight } from 'src/Components/HighLight';
 import { GroupCard } from 'src/Components/GroupCard';
 import { ListEmpty } from 'src/Components/ListEmpty';
+import { Button } from 'src/Components/Button';
 
 export function Groups() {
-  const [groups, setgroups] = useState<string[]>([]);
+  const [groups, setgroups] = useState<string[]>(['Teste de turma']);
   return (
     <Container>
       <Header  />
@@ -28,6 +29,9 @@ export function Groups() {
       message='Que tal cadastrar a primeira turma?'
       />
     )}
+      />
+      <Button 
+      title='Criar nova turma' 
       />
     </Container>
   );
