@@ -7,7 +7,7 @@ import { GroupCard } from 'src/Components/GroupCard';
 import { ListEmpty } from 'src/Components/ListEmpty';
 
 export function Groups() {
-  const [groups, setgroups] = useState<string[]>(['Galera de Cowboy', 'Amigos', 'Familia']);
+  const [groups, setgroups] = useState<string[]>([]);
   return (
     <Container>
       <Header  />
@@ -22,7 +22,12 @@ export function Groups() {
           title={item}
         />
       )}
-      ListEmptyComponent={() => <ListEmpty message='Que tal cadastrar a primeira turma?'/>}
+      contentContainerStyle={groups.length === 0&& { flex: 1 }}
+      ListEmptyComponent={() => (
+      <ListEmpty 
+      message='Que tal cadastrar a primeira turma?'
+      />
+    )}
       />
     </Container>
   );
