@@ -7,6 +7,7 @@ import { Input } from "src/Components/Input";
 import { FlatList } from "react-native";
 import { useState } from "react";
 import { PlayerCard } from "src/Components/PlayerCard";
+import { ListEmpty } from "src/Components/ListEmpty";
 
 export function Players(){
     const [team, setTeam] = useState('Time a');
@@ -52,6 +53,17 @@ export function Players(){
             OnRemove={() => { }}
             />
         )}
+        ListEmptyComponent={() => (
+      <ListEmpty 
+      message='Não há pessoas neste time?'
+      />
+    )}
+    showsVerticalScrollIndicator={false}
+    contentContainerStyle={[
+        {paddingBottom: 100},
+        players.length === 0 && {flex: 1}
+    
+    ]}
         />
 
                 </Container>
