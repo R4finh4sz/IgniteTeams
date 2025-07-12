@@ -6,6 +6,7 @@ import {ButtonIcon} from 'src/Components/ButtonIcon'
 import { Input } from "src/Components/Input";
 import { FlatList } from "react-native";
 import { useState } from "react";
+import { PlayerCard } from "src/Components/PlayerCard";
 
 export function Players(){
     const [team, setTeam] = useState('Time a');
@@ -41,6 +42,15 @@ export function Players(){
         {players.length}
         </NumberOfPlayers>
         </HeaderList>
+
+        <FlatList 
+        data={players}
+        keyExtractor={item => item}
+        renderItem={({item}) =>(
+            <PlayerCard name={item}/>
+        )}
+        />
+
                 </Container>
     );
 }
