@@ -1,7 +1,9 @@
 import { Container, Icon, Name } from './styles'
+import { ButtonIcon } from '../ButtonIcon';
 
 type Props ={
-    name: string;
+    name: string,
+    OnRemove () => void;
 }
 
 export function PlayerCard({name}: Props) {
@@ -11,6 +13,10 @@ export function PlayerCard({name}: Props) {
             <Name>
                 {name}
             </Name>
+            <ButtonIcon 
+            icon="close"
+            type='SECONDARY'
+            />
         </Container>
     );
 }
