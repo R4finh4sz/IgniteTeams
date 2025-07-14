@@ -8,6 +8,7 @@ import { FlatList } from "react-native";
 import { useState } from "react";
 import { PlayerCard } from "src/Components/PlayerCard";
 import { ListEmpty } from "src/Components/ListEmpty";
+import { Button } from "src/Components/Button";
 
 export function Players(){
     const [team, setTeam] = useState('Time a');
@@ -55,7 +56,7 @@ export function Players(){
         )}
         ListEmptyComponent={() => (
       <ListEmpty 
-      message='Não há pessoas neste time?'
+      message='Não há pessoas neste time'
       />
     )}
     showsVerticalScrollIndicator={false}
@@ -65,7 +66,10 @@ export function Players(){
     
     ]}
         />
-
+    <Button
+    title="Remover Turma"
+    type="SECUNDARY"
+    />
                 </Container>
     );
 }
