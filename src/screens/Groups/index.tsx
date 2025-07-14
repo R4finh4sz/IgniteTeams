@@ -9,6 +9,7 @@ import { Button } from 'src/Components/Button';
 
 export function Groups() {
   const [groups, setgroups] = useState<string[]>(['Teste de turma']);
+
   return (
     <Container>
       <Header  />
