@@ -8,9 +8,6 @@
       "@img/*": [
         "src/img/*"
       ],
-      "@routes/*": [
-        "src/routes/*"
-      ],
       "@screens/*": [
         "src/screens/*"
       ],
