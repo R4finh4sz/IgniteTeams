@@ -6,9 +6,16 @@ import { HighLight } from 'src/Components/HighLight';
 import { GroupCard } from 'src/Components/GroupCard';
 import { ListEmpty } from 'src/Components/ListEmpty';
 import { Button } from 'src/Components/Button';
+import { useNavigation } from '@react-navigation/native';
 
-export function Groups() {
+export function Groups(props: { navigation: { navigate: (arg0: string) => void; }; }) {
   const [groups, setgroups] = useState<string[]>(['Teste de turma']);
+
+const navigation = useNavigation()
+
+  function handleNewGroup(){
+    navigation.navigate('new')
+  }
 
   return (
     <Container>
@@ -33,6 +40,7 @@ export function Groups() {
       />
       <Button 
       title='Criar nova turma' 
+      onPress={handleNewGroup}
       />
     </Container>
   );
