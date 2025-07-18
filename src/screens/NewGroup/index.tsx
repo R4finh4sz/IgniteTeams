@@ -5,6 +5,7 @@ import { Button } from "src/Components/Button";
 import { Input } from "src/Components/Input";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
+import { groupCreate } from "src/Storage/group/groupcreate";
 
 export function NewGroup() {
 
@@ -12,7 +13,8 @@ export function NewGroup() {
     const [group, setgroup] = useState('');
     const navigation = useNavigation();
 
-    function handleNew() {
+    async function handleNew() {
+    await groupCreate(group)
     navigation.navigate('players', { group })    
     }
 
