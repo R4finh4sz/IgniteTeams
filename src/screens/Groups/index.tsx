@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { FlatList } from 'react-native';
 import { Container } from './styles';
 import { Header } from 'src/Components/Header';
@@ -6,7 +6,8 @@ import { HighLight } from 'src/Components/HighLight';
 import { GroupCard } from 'src/Components/GroupCard';
 import { ListEmpty } from 'src/Components/ListEmpty';
 import { Button } from 'src/Components/Button';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { groupsGetAll } from 'src/Storage/group/groupsGetAll';
 
 export function Groups(props: { navigation: { navigate: (arg0: string) => void; }; }) {
   const [groups, setgroups] = useState<string[]>(['Teste de turma']);
@@ -16,6 +17,19 @@ const navigation = useNavigation()
   function handleNewGroup(){
     navigation.navigate('new')
   }
+
+  async function fetchGroups() {
+    try{
+          const data = await groupsGetAll();
+          setgroups(data);
+    }catch(error){
+      console.log(error);
+    }
+  }
+
+    useFocusEffect(useCallback(() =>{
+      fetchGroups();
+    }, []));
 
   return (
     <Container>
