@@ -27,6 +27,10 @@ const navigation = useNavigation()
     }
   }
 
+  function handleOpenGroup(group: string){
+    navigation.navigate('players', { group }) 
+  }
+
     useFocusEffect(useCallback(() =>{
       fetchGroups();
     }, []));
