@@ -1,11 +1,23 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AppError } from "src/Utils/AppError";
 import { PLAYER_COLLECTION } from "../storageConfig";
-import {PlayerStogareDTO} from './PlayerStrogareDTO'
+import { playerGetByGroup } from "./playersGetByGroup";
+import { PlayerStorageDTO } from "./PlayerStorageDTO";
 
-export async function playerAddByGroup(newPlayer: PlayerStogareDTO, group: string) {
+export async function playerAddByGroup(newPlayer: PlayerStorageDTO, group: string) {
     try{
-        await AsyncStorage.setItem({`${PLAYER_COLLECTION}-${group}`, '')
+
+        const storedPlayers = await playerGetByGroup(group);
+
+        const playerAlreadyExist = storedPlayers.filter(player => player.name === newPlayer.name);
+
+        if (playerAlreadyExist.length > 0) {
+            throw new AppError('Essa pessoa já esta cadastrada a um time')
+        }
+
+        const storage = JSON.stringify([...storedPlayers, newPlayer])
+
+        await AsyncStorage.setItem(`${PLAYER_COLLECTION}-${group}`, 'storage')
 
     } catch (error){
     throw (error);
