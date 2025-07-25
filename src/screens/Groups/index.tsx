@@ -28,7 +28,7 @@ const navigation = useNavigation()
   }
 
   function handleOpenGroup(group: string){
-    navigation.navigate('players', { group }) 
+    navigation.navigate('players', { group });
   }
 
     useFocusEffect(useCallback(() =>{
@@ -47,6 +47,7 @@ const navigation = useNavigation()
         renderItem={({ item }) => (
         <GroupCard
           title={item}
+          onPress={() => handleOpenGroup(item)}
         />
       )}
       contentContainerStyle={groups.length === 0&& { flex: 1 }}
