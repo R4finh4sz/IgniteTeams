@@ -1,75 +1,93 @@
+import { useState, useEffect } from 'react';
+import { FlatList, Alert } from 'react-native'
+import { useRoute } from '@react-navigation/native';
+
+import { AppError } from 'src/Utils/AppError';
+
+import { PlayerStorageDTO } from 'src/Storage/player/PlayerStorageDTO';
+import { playerAddByGroup } from 'src/Storage/player/playerAddByGroup';
+import { playersGetByGroup } from 'src/Storage/player/playersGetByGroup';
+
 import { Header } from "src/Components/Header";
 import { HighLight } from "src/Components/HighLight";
+import { ButtonIcon } from "src/Components/ButtonIcon";
 import { Filter } from "src/Components/Filter";
-import { Container, Form, HeaderList, NumberOfPlayers } from "./styles";
-import {ButtonIcon} from 'src/Components/ButtonIcon'
 import { Input } from "src/Components/Input";
-import { Alert, FlatList } from "react-native";
-import { useState } from "react";
-import { PlayerCard } from "src/Components/PlayerCard";
-import { ListEmpty } from "src/Components/ListEmpty";
-import { Button } from "src/Components/Button";
-import { useRoute } from "@react-navigation/native";
-import { AppError } from "src/Utils/AppError";
-import { playerAddByGroup } from "src/Storage/player/playerAddByGroup";
-import { playerGetByGroup } from "src/Storage/player/playersGetByGroup";
-import { playersGetByGroupAndTeam } from "src/Storage/player/playerGetByGroupAndTeam";
-import { PlayerStorageDTO } from "src/Storage/player/PlayerStorageDTO";
+import { PlayerCard } from 'src/Components/PlayerCard';
+import { ListEmpty } from 'src/Components/ListEmpty';
+import { Button } from 'src/Components/Button';
+
+import { Container, Form, HeaderList, NumberOfPlayers } from "./styles";
 
 type RouteParams = {
-    group: string;
+  group: string;
 }
 
-export function Players(){
-    const [newPlayerName, setnewPlayerName ] = useState('');
-    const [team, setTeam] = useState('Time a');
-    const [players, setPlayers] = useState<PlayerStorageDTO[]>([]);
-    const route = useRoute();
-    const {group} = route.params as RouteParams;
+export function Players() {
+  const [newPlayerName, setNewPlayerName] = useState('');
+  const [team, setTeam] = useState('Time A');
+  const [players, setPlayers] = useState<PlayerStorageDTO[]>([]);
 
-    async function handleAddPlayer() {
-        if (newPlayerName.trim().length === 0){
-           return Alert.alert('Nova Pessoa', 'Informe o nome da pessoa para adicionar')
-        }
-        
-        const newPlayer = {
-            name: newPlayerName,
-            team,
-        }
-        try{
-            await playerAddByGroup(newPlayer, group);
-        }catch(error){
-            if(error instanceof AppError){
-                Alert.alert('Nova pessoa', error.message)
-            }else{
-                console.log(error)
-                Alert.alert('Nova pessoa', 'Não foi possivel adicionar');
-            }
-        }
+  const route = useRoute();
+
+  const { group } = route.params as RouteParams;
+
+  async function handleAddPlayer() {
+    if(newPlayerName.trim().length === 0) {
+      return Alert.alert('Nova pessoa', 'Informe o nome da pessoa para adicionar.');
     }
 
-    async function fetchPlayersByTeam() {
+    const newPlayer = {
+      name: newPlayerName,
+      team,
+    }
+
     try {
-      const playersByTeam = await playersGetByGroupAndTeam(group, team);
-      setPlayers(playersByTeam)
+      await playerAddByGroup(newPlayer, group);
+      setNewPlayerName('');
+      await fetchPlayersByTeam();
+    } catch (error) {
+      if(error instanceof AppError){
+        Alert.alert('Nova pessoa', error.message);
+      } else {
+        console.log(error);
+        Alert.alert('Nova pessoa', 'Não foi possível adicionar.');
+      }
+    }
+  }
+
+  async function fetchPlayersByTeam() {
+    try {
+      const allPlayers = await playersGetByGroup(group);
+      const playersByTeam = allPlayers.filter(player => player.team === team);
+      setPlayers(playersByTeam);
     } catch (error) {
       console.log(error);
       Alert.alert('Pessoas', 'Não foi possível carregar as pessoas do time selecionado.');
     }
   }
 
-    return (
+  useEffect(() => {
+    fetchPlayersByTeam();
+  },[team])
+
+  return (
     <Container>
       <Header showBackButton />
 
-
-      <HighLight title={group} subtitle={"adicione a galera e separe os times"}/>
+      <HighLight
+        title={group}
+        subtitle="adicione a galera e separe os times"
+      />
 
       <Form>
         <Input 
           placeholder="Nome da pessoa"
           autoCorrect={false}
-          onChangeText={setNewPlayerName}
+          value={newPlayerName}
+          onChangeText={(text) => {
+            setNewPlayerName(text);
+          }}
         />
 
         <ButtonIcon 
@@ -86,7 +104,9 @@ export function Players(){
             <Filter 
               title={item}
               isActive={item === team}
-              onPress={() => setTeam(item)}
+              onPress={() => {
+                setTeam(item);
+              }}
             />
           )}
           horizontal
@@ -99,10 +119,10 @@ export function Players(){
 
       <FlatList 
         data={players}
-        keyExtractor={item => item}
+        keyExtractor={item => item.name}
         renderItem={({ item }) => (
           <PlayerCard 
-            name={item} 
+            name={item.name} 
             onRemove={() => {}}
           />
         )}
@@ -114,7 +134,8 @@ export function Players(){
       />
 
       <Button 
-        title="Remover Turma" type="SECUNDARY"
+        title="Remover Turma"
+        type='SECUNDARY'
       />
     </Container>
   )

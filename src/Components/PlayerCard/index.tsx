@@ -3,10 +3,10 @@ import { ButtonIcon } from '../ButtonIcon';
 
 type Props ={
     name: string,
-    OnRemove: () => void;
+    onRemove: () => void;
 }
 
-export function PlayerCard({name}: Props) {
+export function PlayerCard({name, onRemove}: Props) {
     return(
         <Container>
             <Icon name="person" />
@@ -16,6 +16,7 @@ export function PlayerCard({name}: Props) {
             <ButtonIcon 
             icon="close"
             type='SECONDARY'
+            onPress={onRemove}
             />
         </Container>
     );
